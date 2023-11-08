@@ -37,7 +37,7 @@ def index():
     """Show portfolio of stocks"""
 
     data = portfolio(session['user_id'])
-    return render_template("index.html", data=data, cash=usd(getCash(session['user_id'])), total=usd(getTotal(session['user_id'])))
+    return render_template("index.html", data=data, cash=getCash(session['user_id']), total=getTotal(session['user_id']))
 
 
 @app.route("/buy", methods=["GET", "POST"])
