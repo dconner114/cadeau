@@ -243,7 +243,7 @@ def sell():
             db.execute("INSERT INTO transactions (username, symbol, shares, price) VALUES (?, ?, ?, ?)", username, symbol, -(qty), price)
             # update cash balance
             db.execute("UPDATE users SET cash = ? WHERE username=?", getCash(session['user_id']) + price * qty, username)
-            return render_template("index.html", data=portfolio(session['user_id']), cash=usd(getCash(session['user_id'])), total=usd(getTotal(session['user_id'])))
+            return render_template("index.html", data=portfolio(session['user_id']), cash=getCash(session['user_id']), total=getTotal(session['user_id']))
         else:
             return apology("You don't own that many shares")
 
