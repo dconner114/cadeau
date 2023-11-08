@@ -228,7 +228,10 @@ def sell():
     if request.method == "POST":
 
         symbol = request.form.get("symbol")
-        qty = float(request.form.get("shares"))
+        try:
+            qty = int(request.form.get("shares"))
+        except ValueError:
+            return apology("Quantity must be a positive integer")
         username = db.execute("SELECT username FROM users WHERE id = ?", session['user_id'])[0]['username']
         price = lookup(symbol)['price']
         # calculate number of stocks the user owns to ensure they own enough to sell
