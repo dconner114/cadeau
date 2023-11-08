@@ -194,6 +194,8 @@ def register():
             return apology("Username already exists")
         elif (password != password_again):
             return apology("Passwords do not match")
+        elif (len(password) < 1 or len(password_again) < 1 or len(username) < 1):
+            return apology("All fields must be populated")
         else:
 
             # Add user to password database
