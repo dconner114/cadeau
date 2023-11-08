@@ -49,17 +49,14 @@ def buy():
         stock = lookup(request.form.get("symbol"))
 
         try:
-            qty = float(request.form.get("shares"))
+            qty = int(request.form.get("shares"))
         except ValueError:
             return apology("Quantity must be a positive integer")
 
         if not stock:
             return apology("Symbol does not exist")
-        if not (isinstance(qty, int) and int > 0):
+        if qty < 1:
             return apology("Quantity must be positive integer")
-
-
-
 
         username = db.execute("SELECT username FROM users WHERE id = ?", session['user_id'])[0]['username']
         name = stock['name']
@@ -74,7 +71,7 @@ def buy():
         else:
             return apology("Not enough funds to purchase")
 
-    return render_template("index.html")
+    return render_template("buy.html")
 
 
 def portfolio(user_id):
