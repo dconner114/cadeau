@@ -6,6 +6,6 @@
 
 {% block main %}
     <main>
-        A share of {{data.name}} ({{data.symbol}}) costs ${{data.price}}
+        A share of {{data.name}} ({{data.symbol}}) costs {{data.price | usd}}
     </main>
 {% endblock %}
