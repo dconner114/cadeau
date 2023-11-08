@@ -47,6 +47,7 @@ def buy():
     if request.method == "POST":
 
         stock = lookup(request.form.get("symbol"))
+
         try:
             qty = float(request.form.get("shares"))
         except ValueError:
@@ -54,6 +55,8 @@ def buy():
 
         if not stock:
             return apology("Symbol does not exist")
+        if not (isinstance(qty, int) and int > 0):
+            return apology("Quantity must be positive integer")
 
 
 
