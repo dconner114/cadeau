@@ -74,7 +74,7 @@ def buy():
         else:
             return apology("Not enough funds to purchase")
 
-    return render_template("buy.html")
+    return render_template("index.html")
 
 
 def portfolio(user_id):
