@@ -48,8 +48,13 @@ def buy():
 
         stock = lookup(request.form.get("symbol"))
         qty = float(request.form.get("shares"))
+
         if not stock:
             return apology("Symbol does not exist")
+        if not (isinstance(qty, int) and int > 0):
+            return apology("Quantity must be positive integer")
+
+
 
         username = db.execute("SELECT username FROM users WHERE id = ?", session['user_id'])[0]['username']
         name = stock['name']
