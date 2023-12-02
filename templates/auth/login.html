@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-9 mx-auto">
+                <img src="/static/total_package.png" width="300" class="d-inline-block align-center" alt="">
+                <h1> CADEAU </h1>
+                <div class="card shadow-sm border-0 my-1">
+                    <div class="card-body p-4 ">
+                        <h5 class="card-title mb-3 fs-5 fw-normal">Log in</h5>
+                        <form action="/auth/login" method="post" id="login-form">
+                            <div class="form-floating">
+                                <input autocomplete="off" autofocus class="form-control" id="username" name="username" placeholder="Username here" type="text">
+                                <label for="username">Username</label>"
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="password" name="password" placeholder="password here" type="password">
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="d-grid mb-3">
+                                <button class="btn btn-primary btn-login" type="submit">Log In</button>
+                            </div>
+                            <div>
+                                Don't have an account? <a href="/auth/register">Sign up</a>
+                            </div>
+                            <div id="alert" class="alert alert-failure mt-3"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+

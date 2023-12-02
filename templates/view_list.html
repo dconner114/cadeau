@@ -1,0 +1,148 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ wishlist.title }}
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <h5 class="text-muted"> Event: {{ wishlist.event_date | date }}</h5>
+    <h1 class=""> {{ wishlist.title }} Wishlist </h1>
+    <h3 class="mb-5"> for {{ wishlist.owner }} </h3>
+
+    <div class="container-fluid content-row">
+        <div class="row">
+            {% for item in items %}
+                <div class="col-md-3 mb-3 col-sm-4">
+                    <div class="card shadow-sm h-100 text-start round-boi">
+                        <div class="card-title p-3"> <h5> {{ item.name }} </h5> </div>
+                        <div class="card-subtitle mb-2 px-3 text-muted">
+                            {% if item.description %}
+                                {{ item.description }}
+                            {% else %}
+                                &nbsp;
+                            {% endif %}
+                        </div>
+                        {% if not is_owner %}
+
+                            {% if item.purchased < 1 %}
+                                <div class="card-body">
+                                    ${{ item.price }}
+                                </div>
+                            {% else %}
+                                <div class="card-body">
+                                    {% if name == purchasers.get(item.purchaser_id, 'unknown')%}
+
+                                            <img src="/static/bought_self_icon.png" alt="You purchased" style="width: 30px;">
+                                            <strong>You purchased</strong>
+
+                                    {% else %}
+                                        <strong>{{purchasers.get(item.purchaser_id, 'Unknown')}} purchased</strong>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+
+                            <footer class="card-footer text-muted">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a class="btn btn-link" href="{{ item.link }}" style="padding: 2; background: none; border: none;">
+                                            <img src="/static/link_icon.png" alt="Follow item url" style="width: 30px;">
+                                        </a>
+                                    </div>
+                                    {% if item.purchased > 0 and name == purchasers.get(item.purchaser_id, 'unknown')%}
+                                        <div class="col-4 text-center text-muted">
+                                        </div>
+                                        <div class="col-4 text-muted">
+                                            <a class="btn btn-link float-end" href="/unbuy_item/{{ item.item_id }}" style="padding: 2; background: none; border: none;">
+                                                <img src="/static/unbuy_icon.png" alt="Unbuy" style="width: 30px;">
+                                            </a>
+                                        </div>
+
+                                    {% elif item.purchased > 0 %}
+                                        <div class="col-4 text-center text-muted">
+                                        </div>
+                                        <div class="col-4 text-muted">
+                                            <a class="btn float-end" style="padding: 2; background: none; border: none;">
+                                                <img src="/static/bought_other_icon.png" alt="Bought" style="width: 30px;">
+                                            </a>
+                                        </div>
+
+                                    {% else %}
+                                        <div class="col-4 text-center text-muted">
+
+                                        </div>
+                                        <div class="col-4 text-center text-muted">
+                                            <a class="btn btn-link float-end" href="/buy_item/{{ item.item_id }}" style="padding: 2; background: none; border: none;">
+                                                <img src="/static/buy_icon.png" alt="Buy" style="width: 30px;">
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </footer>
+                        {% else %}
+                            <div class="card-body">
+                                <a>${{ item.price }}</a>
+                            </div>
+
+                            <footer class="card-footer text-muted">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a class="btn btn-link" href="/delete_item/{{ item.item_id }}" style="padding: 2; background: none; border: none;">
+                                            <img src="/static/delete_icon.png" alt="Follow item url" style="width: 30px;">
+                                        </a>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <a class="btn btn-link" href="{{ item.link }}" style="padding: 2; background: none; border: none;">
+                                            <img src="/static/link_icon.png" alt="Follow item url" style="width: 30px;">
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="/edit_item/{{ item.item_id }}" class="btn btn-link float-end" style="padding: 2; background: none; border: none;">
+                                            <img src="/static/edit_icon.png" alt="Edit Wishlist" style="width: 30px;">
+                                        </a>
+                                    </div>
+                            </footer>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            {% if is_owner %}
+                <div class="col-md-3 mb-3 col-sm-4">
+                    <div class="card shadow-sm h-100 text-start round-boi">
+                        <div class="card-body p-3 text-center">
+                            <a href="/add_item/{{ wishlist.wishlist_id }}" class="btn btn-link" style="padding: 2; background: none; border: none;">
+                                <img src="/static/add_icon.png" alt="Add item" style="width: 120px;">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if shared_with %}
+    <h3 class="mb-3">
+        <div>
+            Shared with:
+        </div>
+        {% for person in shared_with %}
+            <h5>
+                {{person.first_name}}
+                {{person.last_name}}
+            </h5>
+        {% endfor %}
+    </h5>
+    {% endif %}
+
+    {% if is_owner %}
+        <div class="mb-3">
+            <form action="/share_list/{{ wishlist.wishlist_id }}" method="post">
+                <div class="mb-1">
+                    <label for="shared_email">Share my list with: </label>
+                    <input autocomplete="off" class="form-control mx-auto w-auto" id="shared_email" name="shared_email" placeholder="my_friend@example.com" type="email">
+                </div>
+                <button class="btn btn-primary" type="submit">Share</button>
+            </form>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

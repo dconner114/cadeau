@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-5 col-sm-6 mx-auto">
+                <div class="card text-left my-1 round-boi">
+                    <div class="card-body p-4">
+                        <img src="/static/orange_package.png" width="100" class="d-inline-block align-center" alt="">
+                        <h4 class="card-title mb-3  fw-normal"> {{ data.first_name|upper }} {{ data.last_name|upper }}</h4>
+                        <div class="mb-2">
+                            <label class="label">username: {{ data.username }}</label>
+                        </div>
+                        <div class="mb-2">
+                            <label>email: {{ data.email }}</label>
+                        </div>
+                        <div class="mb-3">
+                            <label type="birthday">birthday: {{ data.birthday | date}}</label>
+                        </div>
+                        <div class="mb-2">
+                            <a class="btn btn-secondary btn-sm" href="/auth/edit_profile" type="submit">Edit profile</a>
+                        </div>
+                        <div class="mb-2">
+                            <a class="btn btn-secondary btn-sm" href="/auth/change_password" type="submit">Change password</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-danger btn-sm" href="/auth/logout" id="logout-button">Logout</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const logoutButton = document.getElementById('logout-button');
+
+        if (logoutButton) {
+            logoutButton.addEventListener('click', function () {
+                // Perform a fetch or submit a form to trigger the /logout route
+                fetch('/auth/logout', { method: 'GET' })
+                    .then(response => {
+                        if (response.ok) {
+                            // Redirect or perform any other action after successful logout
+                            window.location.href = '/auth/login';
+                        } else {
+                            // Handle logout error
+                            console.error('Logout error:', response.status);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Logout error:', error);
+                    });
+            });
+        }
+    });
+</script>

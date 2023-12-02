@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Item
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-6 mx-auto">
+            <div class="card shadow-sm border-0 my-1">
+                <div class="card-body p-4 p-sm-5">
+                    <h5 class="card-title mb-3 text-start fw-normal">Edit Item</h5>
+                    <form action="/edit_item/{{ item_id }}" method="post">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-floating">
+                                    <input autocomplete="off" required autofocus class="form-control" id="name" name="name" placeholder="name" type="text" value="{{ item.name }}">
+                                    <label for="Name">Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <div class="form-floating">
+                                    <input autocomplete="off" class="form-control" id="description" name="description" placeholder="description" type="text" value="{{ item.description }}">
+                                    <label for="description">Description (ie color, style, platform)</label>
+                                </div>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <div class="form-floating">
+                                    <input autocomplete="off" class="form-control" id="price" step="0.01" name="price" placeholder="price" type="number" value="{{ item.price }}">
+                                    <label for="price">Price $</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-floating">
+                                    <input autocomplete="off" class="form-control" id="link" name="link" placeholder="link" type="url" value="{{ item.link }}">
+                                    <label for="link">Link URL</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                    <button class="btn btn-primary float-end" type="submit">Save changes</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
