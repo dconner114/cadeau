@@ -1,0 +1,22 @@
+/* Size for brand */
+.navbar-light {
+    /* background-color: #99a98f !important; */
+}
+
+.card {
+    /* background-color:  #dbead2 !important; */
+    border-radius: 0px !important;
+}
+
+.round-boi {
+    border-radius: 20px
+}
+
+.pill {
+    border-radius: 999em;
+    padding: 8px 18px 9px 18px;
+}
+
+body {
+    background-color: #ededed;
+}

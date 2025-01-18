@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-6 px-4" id="upcoming">
+                <h2 class="text-start mb-3 fw-normal">Upcoming</h2>
+                {% if upcoming %}
+                    <div class="row content-row">
+                            <!-- List of wishlist cards user has access to -->
+                            {% for wishlist in upcoming %}
+                            <div class="col-lg-6 col-md-12 px-2">
+                                <div class="card shadow-sm text-start mb-3 round-boi">
+                                    <div class="card-title p-3">
+                                        <h5>
+                                            {{wishlist.title}} for {{ wishlist.first_name }} {{ wishlist.last_name }}
+                                        </h5>
+                                    </div>
+                                    <div class="card-subtitle mb-2 px-3 text-muted">
+                                        {% if wishlist.event_date %}
+                                            {{ wishlist.event_date | date }}
+                                        {% else %}
+                                            &nbsp;
+                                        {% endif %}
+                                    </div>
+                                    <footer class="card-footer text-muted">
+                                        <div class="row">
+                                            <div class="col-6">
+
+                                            </div>
+                                            <div class="col-6">
+                                                <a href="/view_list/{{ wishlist.wishlist_id }}" class="btn btn-link float-end" style="padding: 2; background: none; border: none;">
+                                                    <img src="/static/edit_icon.png" alt="Edit Wishlist" style="width: 25px;">
+                                                </a>
+                                            </div>
+                                    </footer>
+                                </div>
+                            </div>
+                            {% endfor %}
+                    </div>
+                {% else %}
+                    <h5 class="text-start">Nobody has shared lists with you</h5>
+                {% endif %}
+            </div>
+
+            <div class="col-lg-4 col-md-6 px-4" id="owned">
+                <h2 class="text-start mb-3 fw-normal">My Wishlists</h2>
+                <div class="row">
+                    <!-- List of wishlist cards user has access to -->
+                    {% for wishlist in my_wishlists %}
+                    <div class="col-md-12 px-2">
+                        <div class="card text-start mb-3 round-boi">
+                            <div class="card-title p-3"> <h5> {{wishlist.title}} </h5></div>
+                                <div class="card-subtitle mb-2 px-3 text-muted">
+                                    {% if wishlist.event_date %}
+                                        {{ wishlist.event_date | date }}
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </div>
+                            <footer class="card-footer text-muted">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a href="/delete_wishlist/{{ wishlist.wishlist_id }}" class="btn btn-link" style="padding: 2; background: none; border: none;">
+                                            <img src="/static/delete_icon.png" alt="Delete Wishlist" style="width: 25px;">
+                                        </a>
+                                    </div>
+                                    <div class="col-6">
+                                        <a href="/view_list/{{ wishlist.wishlist_id }}" class="btn btn-link float-end" style="padding: 2; background: none; border: none;">
+                                            <img src="/static/edit_icon.png" alt="Edit Wishlist" style="width: 25px;">
+                                        </a>
+                                    </div>
+                            </footer>
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col md-12">
+                    <a class="btn btn-secondary float-end" href="/add_list">New wishlist</a>
+                </class>
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

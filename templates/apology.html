@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Error
+{% endblock %}
+
+{% block main %}
+
+<h2 class="text-danger">{{ code }}: {{ message }}</h2>
+<img class="img-fluid" width="200" src="/static/error_package.png">
+
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
